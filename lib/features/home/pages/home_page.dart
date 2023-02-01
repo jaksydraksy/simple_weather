@@ -17,8 +17,8 @@ class HomePage extends StatelessWidget {
       create: (context) => HomeCubit(
         WeatherRepository(WeatherRemoteDataSource()),
       ),
-      child: BlocListener<HomeCubit, HomeState>(
-        listener: (context, state) {
+        child: BlocConsumer<HomeCubit, HomeState>(
+         listener: (context, state) {
           if (state.status == Status.error) {
             final errorMessage = state.errorMessage ?? 'Unkown error';
             ScaffoldMessenger.of(context).showSnackBar(
@@ -29,7 +29,6 @@ class HomePage extends StatelessWidget {
             );
           }
         },
-        child: BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
             final weatherModel = state.model;
             return Scaffold(
